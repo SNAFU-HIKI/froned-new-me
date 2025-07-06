@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Shield, FileText, User, Bell, Palette, Globe } from 'lucide-react';
+import { ArrowLeft, User, Bell, Palette, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '../ui/Button';
 
@@ -11,15 +11,6 @@ export const SettingsPage: React.FC = () => {
       items: [
         { name: 'Profile Settings', description: 'Manage your account information' },
         { name: 'Preferences', description: 'Customize your experience' },
-      ]
-    },
-    {
-      title: 'Privacy & Security',
-      icon: Shield,
-      items: [
-        { name: 'Privacy Policy', description: 'View our privacy policy', link: '/privacy' },
-        { name: 'Terms & Conditions', description: 'View terms and conditions', link: '/terms' },
-        { name: 'Data Management', description: 'Control your data' },
       ]
     },
     {
@@ -83,54 +74,23 @@ export const SettingsPage: React.FC = () => {
                 <div className="divide-y divide-gray-200">
                   {category.items.map((item) => (
                     <div key={item.name} className="p-6 hover:bg-gray-50 transition-colors">
-                      {item.link ? (
-                        <Link to={item.link} className="block">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
-                              <p className="text-gray-600 mt-1">{item.description}</p>
-                            </div>
-                            <div className="text-gray-400">
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                              </svg>
-                            </div>
-                          </div>
-                        </Link>
-                      ) : (
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
-                            <p className="text-gray-600 mt-1">{item.description}</p>
-                          </div>
-                          <div className="text-gray-400">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </div>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
+                          <p className="text-gray-600 mt-1">{item.description}</p>
                         </div>
-                      )}
+                        <div className="text-gray-400">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             );
           })}
-        </div>
-
-        {/* Quick Actions */}
-        <div className="mt-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Button variant="outline" className="justify-start">
-              <FileText className="w-4 h-4 mr-2" />
-              Export Data
-            </Button>
-            <Button variant="outline" className="justify-start">
-              <Shield className="w-4 h-4 mr-2" />
-              Security Checkup
-            </Button>
-          </div>
         </div>
       </div>
     </div>

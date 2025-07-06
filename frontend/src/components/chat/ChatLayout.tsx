@@ -5,12 +5,33 @@ import { Sidebar } from './Sidebar';
 import { ChatInterface } from './ChatInterface';
 
 export const ChatLayout: React.FC = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(() => {
+    // Get initial state from localStorage, default to false for mobile
+    const saved = localStorage.getItem('sidebar-open');
+    if (saved !== null) {
+      return JSON.parse(saved);
+    }
+    return window.innerWidth >= 1024; // Default open on desktop
+  });
+
+  // Save sidebar state to localStorage
+  useEffect(() => {
+    localStorage.setItem('sidebar-open', JSON.stringify(sidebarOpen));
+  }, [sidebarOpen]);
 
   // Close sidebar on mobile when screen size changes
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
+        // On desktop, restore saved state
+        const saved = localStorage.getItem('sidebar-open');
+        if (saved !== null) {
+          setSidebarOpen(JSON.parse(saved));
+        } else {
+          setSidebarOpen(true);
+        }
+      } else {
+        // On mobile, always close
         setSidebarOpen(false);
       }
     };
@@ -19,9 +40,13 @@ export const ChatLayout: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <div className="h-screen flex bg-gray-50">
-      <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Mobile header with menu button */}
@@ -30,8 +55,26 @@ export const ChatLayout: React.FC = () => {
             variant="ghost"
             size="sm"
             icon={Menu}
-            onClick={() => setSidebarOpen(true)}
+            onClick={toggleSidebar}
             className="mr-4"
+          />
+          <div className="flex items-center">
+            <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center mr-2">
+              <div className="w-3 h-3 bg-white rounded-sm"></div>
+            </div>
+            <span className="font-semibold text-gray-900">MCP Chat Bot</span>
+          </div>
+        </div>
+        
+        {/* Desktop header with toggle button */}
+        <div className="hidden lg:flex bg-white border-b border-gray-200 p-4 items-center">
+          <Button
+            variant="ghost"
+            size="sm"
+            icon={Menu}
+            onClick={toggleSidebar}
+            className="mr-4"
+            title={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
           />
           <div className="flex items-center">
             <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center mr-2">

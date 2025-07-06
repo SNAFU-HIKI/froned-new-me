@@ -59,7 +59,10 @@ export const useChatStore = create<ChatState>()(
       setLoading: (isLoading) => set({ isLoading }),
       setSelectedModel: (selectedModel) => set({ selectedModel }),
       setEnabledTools: (enabledTools) => set({ enabledTools }),
-      clearMessages: () => set({ messages: [], currentChatId: null }),
+      clearMessages: () => set({ 
+        messages: [], 
+        currentChatId: null 
+      }),
       refreshChats: () => set((state) => ({ refreshTrigger: state.refreshTrigger + 1 })),
     }),
     {

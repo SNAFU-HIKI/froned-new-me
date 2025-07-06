@@ -3,11 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { 
   MessageSquare, 
   Plus, 
-  Settings, 
-  Workflow, 
   FolderOpen,
-  User,
-  LogOut,
   Trash2,
   MoreHorizontal,
   Menu,
@@ -19,10 +15,11 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { Button } from '../ui/Button';
-import { useAuthStore } from '../../store/authStore';
+import { UserMenu } from '../ui/UserMenu';
 import { useChatStore } from '../../store/chatStore';
-import { authAPI, chatAPI } from '../../services/api';
+import { chatAPI } from '../../services/api';
 import { supabase } from '../../config/supabase';
+import { useAuthStore } from '../../store/authStore';
 
 interface Chat {
   id: string;
@@ -47,7 +44,7 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const location = useLocation();
   const { chatId } = useParams();
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
   const { clearMessages, refreshTrigger } = useChatStore();
   const [chats, setChats] = useState<Chat[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -97,20 +94,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await authAPI.logout();
-      logout();
-      clearMessages();
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
-
   const handleNewChat = () => {
     clearMessages();
+    // Navigate to new chat and close sidebar on mobile
+    window.location.href = '/chat';
     if (window.innerWidth < 1024) {
-      onToggle(); // Close sidebar on mobile after creating new chat
+      onToggle();
     }
   };
 
@@ -235,11 +224,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
     return date.toLocaleDateString();
   };
 
-  const menuItems = [
-    { icon: Settings, label: 'Settings', path: '/settings' },
-    { icon: Workflow, label: 'MCP Workflow', path: '/workflow', badge: 'New' },
-  ];
-
   return (
     <>
       {/* Mobile overlay */}
@@ -286,33 +270,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
 
         {/* Navigation */}
         <div className="flex-1 p-4 overflow-y-auto">
-          <nav className="space-y-2 mb-6">
-            {menuItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => {
-                  if (window.innerWidth < 1024) onToggle();
-                }}
-                className={`
-                  flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                  ${location.pathname === item.path
-                    ? 'bg-gray-200 text-gray-900'
-                    : 'text-gray-700 hover:bg-gray-100'
-                  }
-                `}
-              >
-                <item.icon className="w-4 h-4 mr-3" />
-                {item.label}
-                {item.badge && (
-                  <span className="ml-auto bg-gray-900 text-white text-xs px-2 py-0.5 rounded-full">
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
-            ))}
-          </nav>
-
           {/* Projects Section */}
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
@@ -520,38 +477,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
           )}
         </div>
 
-        {/* User Profile */}
+        {/* User Menu */}
         <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center min-w-0">
-              {user?.picture ? (
-                <img
-                  src={user.picture}
-                  alt={user.name}
-                  className="w-8 h-8 rounded-full mr-3"
-                />
-              ) : (
-                <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-3">
-                  <User className="w-4 h-4 text-gray-600" />
-                </div>
-              )}
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900 truncate">
-                  {user?.name || 'User'}
-                </p>
-                <p className="text-xs text-gray-500 truncate">
-                  {user?.email}
-                </p>
-              </div>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              icon={LogOut}
-              className="ml-2"
-            />
-          </div>
+          <UserMenu />
         </div>
       </div>
     </>
