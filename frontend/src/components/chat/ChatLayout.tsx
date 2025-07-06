@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Sidebar } from './Sidebar';
 import { ChatInterface } from './ChatInterface';
@@ -41,25 +41,27 @@ export const ChatLayout: React.FC = () => {
       <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header with toggle button */}
-        <div className="bg-white border-b border-gray-200 p-4 flex items-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            icon={Menu}
-            onClick={toggleSidebar}
-            className="mr-4"
-            title={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
-          />
-          <div className="flex items-center">
-            <img 
-              src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
-              alt="OrbitMCP Logo" 
-              className="w-6 h-6 mr-2"
+        {/* Header with toggle button - only show when sidebar is closed */}
+        {!sidebarOpen && (
+          <div className="bg-white border-b border-gray-200 p-4 flex items-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              icon={Menu}
+              onClick={toggleSidebar}
+              className="mr-4"
+              title="Open sidebar"
             />
-            <span className="font-semibold text-gray-900">OrbitMCP</span>
+            <div className="flex items-center">
+              <img 
+                src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
+                alt="OrbitMCP Logo" 
+                className="w-6 h-6 mr-2"
+              />
+              <span className="font-semibold text-gray-900">OrbitMCP</span>
+            </div>
           </div>
-        </div>
+        )}
         
         <ChatInterface />
       </div>

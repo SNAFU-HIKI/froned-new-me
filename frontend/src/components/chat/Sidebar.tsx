@@ -13,7 +13,6 @@ import {
   Folder,
   ChevronDown,
   ChevronRight,
-  Bug,
   Star
 } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -226,10 +225,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
     if (diffDays === 2) return 'Yesterday';
     if (diffDays <= 7) return `${diffDays} days ago`;
     return date.toLocaleDateString();
-  };
-
-  const handleReportIssue = () => {
-    window.open('https://github.com/ThunderBolt4931/MCP_ENABLED_CHATBOT/issues', '_blank');
   };
 
   const handleProvideFeedback = () => {
@@ -496,14 +491,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
               Help & Feedback
             </h3>
             <div className="space-y-1">
-              <button
-                onClick={handleReportIssue}
-                className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <Bug className="w-4 h-4 mr-3" />
-                Report an Issue
-              </button>
-              
               <button
                 onClick={handleProvideFeedback}
                 className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"

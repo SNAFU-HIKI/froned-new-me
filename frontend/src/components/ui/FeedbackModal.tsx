@@ -22,6 +22,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
 
     setIsSubmitting(true);
     try {
+      // Insert feedback without user_id since the table doesn't have that column
       const { error } = await supabase
         .from('feedback')
         .insert([{
@@ -31,7 +32,10 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
           rating
         }]);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Feedback submission error:', error);
+        throw error;
+      }
 
       setSubmitted(true);
       setTimeout(() => {

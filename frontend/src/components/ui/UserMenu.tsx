@@ -2,11 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ChevronUp, 
-  Settings, 
   Shield, 
   FileText, 
   LogOut,
-  User
+  User,
+  Bug
 } from 'lucide-react';
 import { useAuthStore } from '../../store/authStore';
 import { authAPI } from '../../services/api';
@@ -34,6 +34,11 @@ export const UserMenu: React.FC = () => {
     } catch (error) {
       console.error('Logout failed:', error);
     }
+  };
+
+  const handleReportIssue = () => {
+    window.open('https://github.com/ThunderBolt4931/MCP_ENABLED_CHATBOT/issues', '_blank');
+    setIsOpen(false);
   };
 
   if (!user) return null;
@@ -76,14 +81,13 @@ export const UserMenu: React.FC = () => {
       {/* Drop-up Menu */}
       {isOpen && (
         <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-          <Link
-            to="/settings"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+          <button
+            onClick={handleReportIssue}
+            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
           >
-            <Settings className="w-4 h-4 mr-3" />
-            Settings
-          </Link>
+            <Bug className="w-4 h-4 mr-3" />
+            Report an Issue
+          </button>
           
           <div className="border-t border-gray-100 my-1"></div>
           
