@@ -6,7 +6,7 @@ import { ChatInterface } from './ChatInterface';
 
 export const ChatLayout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(() => {
-    // Get initial state from localStorage, default to false for mobile
+    // Get initial state from localStorage, default to true for desktop, false for mobile
     const saved = localStorage.getItem('sidebar-open');
     if (saved !== null) {
       return JSON.parse(saved);
@@ -19,19 +19,11 @@ export const ChatLayout: React.FC = () => {
     localStorage.setItem('sidebar-open', JSON.stringify(sidebarOpen));
   }, [sidebarOpen]);
 
-  // Close sidebar on mobile when screen size changes
+  // Handle responsive behavior
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        // On desktop, restore saved state
-        const saved = localStorage.getItem('sidebar-open');
-        if (saved !== null) {
-          setSidebarOpen(JSON.parse(saved));
-        } else {
-          setSidebarOpen(true);
-        }
-      } else {
-        // On mobile, always close
+      if (window.innerWidth < 1024) {
+        // On mobile, always close sidebar when resizing
         setSidebarOpen(false);
       }
     };
@@ -49,27 +41,8 @@ export const ChatLayout: React.FC = () => {
       <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Mobile header with menu button */}
-        <div className="lg:hidden bg-white border-b border-gray-200 p-4 flex items-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            icon={Menu}
-            onClick={toggleSidebar}
-            className="mr-4"
-          />
-          <div className="flex items-center">
-            <img 
-              src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
-              alt="OrbitMCP Logo" 
-              className="w-6 h-6 mr-2"
-            />
-            <span className="font-semibold text-gray-900">OrbitMCP</span>
-          </div>
-        </div>
-        
-        {/* Desktop header with toggle button */}
-        <div className="hidden lg:flex bg-white border-b border-gray-200 p-4 items-center">
+        {/* Header with toggle button */}
+        <div className="bg-white border-b border-gray-200 p-4 flex items-center">
           <Button
             variant="ghost"
             size="sm"
