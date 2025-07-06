@@ -1,4 +1,4 @@
-# AI-Powered Chatbot with Google Workspace Integration
+# OrbitMCP - AI-Powered Chatbot with Google Workspace Integration
 
 A modern, production-ready chatbot application with Google OAuth authentication and comprehensive Google Workspace integration (Drive, Gmail, Calendar).
 
@@ -36,7 +36,7 @@ This project is configured for easy deployment on Render with separate frontend 
 1. **Create a new Web Service** on Render
 2. **Connect your repository**
 3. **Configure the service:**
-   - **Name**: `ai-chatbot-backend`
+   - **Name**: `orbitmcp-backend`
    - **Environment**: `Node`
    - **Build Command**: `cd server && npm install && npm run install-python-deps`
    - **Start Command**: `cd server && npm start`
@@ -62,7 +62,7 @@ This project is configured for easy deployment on Render with separate frontend 
 1. **Create a new Static Site** on Render
 2. **Connect your repository**
 3. **Configure the service:**
-   - **Name**: `ai-chatbot-frontend`
+   - **Name**: `orbitmcp-frontend`
    - **Build Command**: `cd frontend && npm install && npm run build`
    - **Publish Directory**: `frontend/dist`
    - **Auto-Deploy**: Yes

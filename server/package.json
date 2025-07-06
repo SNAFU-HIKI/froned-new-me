@@ -1,7 +1,7 @@
 {
-  "name": "ai-chatbot-backend",
+  "name": "orbitmcp-backend",
   "version": "1.0.0",
-  "description": "AI-powered chatbot backend with Google Workspace integration",
+  "description": "OrbitMCP - AI-powered chatbot backend with Google Workspace integration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

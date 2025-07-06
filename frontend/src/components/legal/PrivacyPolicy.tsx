@@ -27,7 +27,7 @@ export const PrivacyPolicy: React.FC = () => {
           <div className="prose prose-gray max-w-none">
             <h2>Introduction</h2>
             <p>
-              Welcome to MCP Chat Bot. We respect your privacy and are committed to protecting your personal data. 
+              Welcome to OrbitMCP. We respect your privacy and are committed to protecting your personal data. 
               This privacy policy will inform you about how we look after your personal data when you visit our 
               application and tell you about your privacy rights and how the law protects you.
             </p>
@@ -141,7 +141,7 @@ export const PrivacyPolicy: React.FC = () => {
               please contact us at:
             </p>
             <ul>
-              <li>Email: privacy@mcpchatbot.com</li>
+              <li>Email: privacy@orbitmcp.com</li>
               <li>Address: [Your Company Address]</li>
             </ul>
 

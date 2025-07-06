@@ -27,14 +27,14 @@ export const TermsConditions: React.FC = () => {
           <div className="prose prose-gray max-w-none">
             <h2>Agreement to Terms</h2>
             <p>
-              By accessing and using MCP Chat Bot, you accept and agree to be bound by the terms 
+              By accessing and using OrbitMCP, you accept and agree to be bound by the terms 
               and provision of this agreement. If you do not agree to abide by the above, please 
               do not use this service.
             </p>
 
             <h2>Description of Service</h2>
             <p>
-              MCP Chat Bot is an AI-powered conversational tool that integrates with Google Workspace 
+              OrbitMCP is an AI-powered conversational tool that integrates with Google Workspace 
               services to help you manage your productivity tasks. Our service includes:
             </p>
             <ul>
@@ -216,7 +216,7 @@ export const TermsConditions: React.FC = () => {
               If you have any questions about these Terms & Conditions, please contact us at:
             </p>
             <ul>
-              <li>Email: legal@mcpchatbot.com</li>
+              <li>Email: legal@orbitmcp.com</li>
               <li>Address: [Your Company Address]</li>
             </ul>
 

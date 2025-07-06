@@ -177,7 +177,7 @@ export const MCPWorkflowPage: React.FC = () => {
               </Button>
             </Link>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">MCP Workflow Results</h1>
+          <h1 className="text-3xl font-bold text-gray-900">OrbitMCP Workflow Results</h1>
           <p className="text-gray-600 mt-2">
             View and analyze the JSON outputs from your MCP toolkit operations
           </p>

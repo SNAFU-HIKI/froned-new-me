@@ -1,7 +1,7 @@
 services:
   # Backend Service
   - type: web
-    name: ai-chatbot-backend
+    name: orbitmcp-backend
     env: node
     buildCommand: cd server && npm install && npm run install-python-deps
     startCommand: cd server && npm start
@@ -31,7 +31,7 @@ services:
 
   # Frontend Service
   - type: web
-    name: ai-chatbot-frontend
+    name: orbitmcp-frontend
     env: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist

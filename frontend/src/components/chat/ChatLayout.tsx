@@ -59,10 +59,12 @@ export const ChatLayout: React.FC = () => {
             className="mr-4"
           />
           <div className="flex items-center">
-            <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center mr-2">
-              <div className="w-3 h-3 bg-white rounded-sm"></div>
-            </div>
-            <span className="font-semibold text-gray-900">MCP Chat Bot</span>
+            <img 
+              src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
+              alt="OrbitMCP Logo" 
+              className="w-6 h-6 mr-2"
+            />
+            <span className="font-semibold text-gray-900">OrbitMCP</span>
           </div>
         </div>
         
@@ -77,10 +79,12 @@ export const ChatLayout: React.FC = () => {
             title={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
           />
           <div className="flex items-center">
-            <div className="w-6 h-6 bg-gray-900 rounded-md flex items-center justify-center mr-2">
-              <div className="w-3 h-3 bg-white rounded-sm"></div>
-            </div>
-            <span className="font-semibold text-gray-900">MCP Chat Bot</span>
+            <img 
+              src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
+              alt="OrbitMCP Logo" 
+              className="w-6 h-6 mr-2"
+            />
+            <span className="font-semibold text-gray-900">OrbitMCP</span>
           </div>
         </div>
         

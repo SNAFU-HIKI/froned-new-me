@@ -149,13 +149,15 @@ export const LoginPage: React.FC = () => {
       <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center p-6 lg:p-12 relative overflow-hidden">
         <div className="max-w-md z-10 text-center lg:text-left">
           <div className="flex items-center justify-center lg:justify-start mb-8">
-            <div className="w-8 h-8 bg-gray-900 rounded-lg flex items-center justify-center mr-3">
-              <div className="w-4 h-4 bg-white rounded-sm"></div>
-            </div>
-            <span className="text-xl font-semibold text-gray-900">MCP Chat Bot</span>
+            <img 
+              src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
+              alt="OrbitMCP Logo" 
+              className="w-10 h-10 mr-3"
+            />
+            <span className="text-xl font-semibold text-gray-900">OrbitMCP</span>
           </div>
           <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-            Welcome to MCP Chat Bot
+            Welcome to OrbitMCP
           </h1>
           <p className="text-lg text-gray-600 leading-relaxed mb-8">
             Sign in to experience our AI-powered conversational tools with seamless Google Workspace integration.
