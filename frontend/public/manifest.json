@@ -1,0 +1,21 @@
+{
+  "name": "OrbitMCP",
+  "short_name": "OrbitMCP",
+  "description": "AI-Powered Chatbot with Google Workspace Integration",
+  "icons": [
+    {
+      "src": "/Screenshot_2025-07-06_234737-removebg-preview.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/Screenshot_2025-07-06_234737-removebg-preview.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1f2937",
+  "background_color": "#ffffff"
+}
