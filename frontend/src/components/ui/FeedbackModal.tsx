@@ -22,10 +22,11 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
 
     setIsSubmitting(true);
     try {
-      // Insert feedback without user_id since the table doesn't have that column
+      // Insert feedback with proper user_id connection
       const { error } = await supabase
         .from('feedback')
         .insert([{
+          user_id: user.id, // Now properly connected to users table
           user_name: user.name,
           user_image: user.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`,
           message: message.trim(),
