@@ -33,6 +33,7 @@ export const ChatLayout: React.FC = () => {
   }, []);
 
   const toggleSidebar = () => {
+    console.log('Toggling sidebar from', sidebarOpen, 'to', !sidebarOpen);
     setSidebarOpen(!sidebarOpen);
   };
 
@@ -41,8 +42,8 @@ export const ChatLayout: React.FC = () => {
       <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header with toggle button - only show when sidebar is closed */}
-        {!sidebarOpen && (
+        {/* Header with toggle button - show when sidebar is closed OR on mobile */}
+        {(!sidebarOpen || window.innerWidth < 1024) && (
           <div className="bg-white border-b border-gray-200 p-4 flex items-center">
             <Button
               variant="ghost"

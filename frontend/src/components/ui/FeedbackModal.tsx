@@ -22,11 +22,42 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
 
     setIsSubmitting(true);
     try {
-      // Insert feedback with proper user_id connection
+      console.log('Submitting feedback for user:', user);
+      
+      // First, ensure the user exists in the users table
+      const { data: existingUser, error: userCheckError } = await supabase
+        .from('users')
+        .select('id')
+        .eq('id', user.id)
+        .single();
+
+      if (userCheckError && userCheckError.code === 'PGRST116') {
+        // User doesn't exist in users table, create them first
+        console.log('User not found in database, creating user record...');
+        const { error: createUserError } = await supabase
+          .from('users')
+          .insert([{
+            id: user.id,
+            google_id: user.id, // Using user.id as google_id for now
+            email: user.email,
+            name: user.name,
+            picture: user.picture
+          }]);
+
+        if (createUserError) {
+          console.error('Error creating user:', createUserError);
+          throw new Error('Failed to create user record');
+        }
+      } else if (userCheckError) {
+        console.error('Error checking user:', userCheckError);
+        throw userCheckError;
+      }
+
+      // Now insert the feedback
       const { error } = await supabase
         .from('feedback')
         .insert([{
-          user_id: user.id, // Now properly connected to users table
+          user_id: user.id,
           user_name: user.name,
           user_image: user.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`,
           message: message.trim(),
@@ -38,6 +69,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
         throw error;
       }
 
+      console.log('Feedback submitted successfully');
       setSubmitted(true);
       setTimeout(() => {
         onClose();
@@ -47,7 +79,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
       }, 2000);
     } catch (error) {
       console.error('Failed to submit feedback:', error);
-      alert('Failed to submit feedback. Please try again.');
+      alert(`Failed to submit feedback: ${error.message || 'Please try again.'}`);
     } finally {
       setIsSubmitting(false);
     }

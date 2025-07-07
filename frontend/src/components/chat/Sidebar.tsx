@@ -13,7 +13,8 @@ import {
   Folder,
   ChevronDown,
   ChevronRight,
-  Star
+  Star,
+  Bug
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { UserMenu } from '../ui/UserMenu';
@@ -229,6 +230,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
 
   const handleProvideFeedback = () => {
     setShowFeedbackModal(true);
+  };
+
+  const handleReportIssue = () => {
+    window.open('https://github.com/ThunderBolt4931/MCP_ENABLED_CHATBOT/issues', '_blank');
   };
 
   return (
@@ -485,7 +490,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
             </div>
           )}
 
-          {/* Feedback Section */}
+          {/* Help & Feedback Section */}
           <div className="mb-6">
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
               Help & Feedback
@@ -497,6 +502,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
               >
                 <Star className="w-4 h-4 mr-3" />
                 Provide Feedback
+              </button>
+              <button
+                onClick={handleReportIssue}
+                className="flex items-center w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Bug className="w-4 h-4 mr-3" />
+                Report an Issue
               </button>
             </div>
           </div>
