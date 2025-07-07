@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Star } from 'lucide-react';
 import { Button } from './Button';
 import { useAuthStore } from '../../store/authStore';
-import { supabase } from '../../config/supabase';
+import { feedbackAPI } from '../../services/api';
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -22,52 +22,13 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
 
     setIsSubmitting(true);
     try {
-      console.log('Submitting feedback for user:', user);
+      console.log('Submitting feedback for user:', user.email);
       
-      // First, ensure the user exists in the users table
-      const { data: existingUser, error: userCheckError } = await supabase
-        .from('users')
-        .select('id')
-        .eq('id', user.id)
-        .single();
-
-      if (userCheckError && userCheckError.code === 'PGRST116') {
-        // User doesn't exist in users table, create them first
-        console.log('User not found in database, creating user record...');
-        const { error: createUserError } = await supabase
-          .from('users')
-          .insert([{
-            id: user.id,
-            google_id: user.id, // Using user.id as google_id for now
-            email: user.email,
-            name: user.name,
-            picture: user.picture
-          }]);
-
-        if (createUserError) {
-          console.error('Error creating user:', createUserError);
-          throw new Error('Failed to create user record');
-        }
-      } else if (userCheckError) {
-        console.error('Error checking user:', userCheckError);
-        throw userCheckError;
-      }
-
-      // Now insert the feedback
-      const { error } = await supabase
-        .from('feedback')
-        .insert([{
-          user_id: user.id,
-          user_name: user.name,
-          user_image: user.picture || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=6366f1&color=fff`,
-          message: message.trim(),
-          rating
-        }]);
-
-      if (error) {
-        console.error('Feedback submission error:', error);
-        throw error;
-      }
+      // Submit feedback through our backend API
+      await feedbackAPI.submitFeedback({
+        message: message.trim(),
+        rating
+      });
 
       console.log('Feedback submitted successfully');
       setSubmitted(true);
@@ -77,9 +38,10 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose })
         setMessage('');
         setRating(5);
       }, 2000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to submit feedback:', error);
-      alert(`Failed to submit feedback: ${error.message || 'Please try again.'}`);
+      const errorMessage = error.response?.data?.error || error.message || 'Please try again.';
+      alert(`Failed to submit feedback: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
     }

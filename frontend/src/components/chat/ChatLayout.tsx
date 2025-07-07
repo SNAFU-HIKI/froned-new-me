@@ -37,13 +37,17 @@ export const ChatLayout: React.FC = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
+  const isMobile = () => {
+    return window.innerWidth < 1024;
+  };
+
   return (
     <div className="h-screen flex bg-gray-50">
       <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
       
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header with toggle button - show when sidebar is closed OR on mobile */}
-        {(!sidebarOpen || window.innerWidth < 1024) && (
+        {(!sidebarOpen || isMobile()) && (
           <div className="bg-white border-b border-gray-200 p-4 flex items-center">
             <Button
               variant="ghost"
@@ -53,14 +57,16 @@ export const ChatLayout: React.FC = () => {
               className="mr-4"
               title="Open sidebar"
             />
-            <div className="flex items-center">
-              <img 
-                src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
-                alt="OrbitMCP Logo" 
-                className="w-6 h-6 mr-2"
-              />
-              <span className="font-semibold text-gray-900">OrbitMCP</span>
-            </div>
+            {!sidebarOpen && (
+              <div className="flex items-center">
+                <img 
+                  src="/Screenshot_2025-07-06_234737-removebg-preview.png" 
+                  alt="OrbitMCP Logo" 
+                  className="w-6 h-6 mr-2"
+                />
+                <span className="font-semibold text-gray-900">OrbitMCP</span>
+              </div>
+            )}
           </div>
         )}
         

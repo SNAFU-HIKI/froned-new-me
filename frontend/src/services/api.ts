@@ -88,6 +88,13 @@ export const projectsAPI = {
     api.put(`/api/chats/${chatId}/project`, { projectId }),
 };
 
+// Feedback API
+export const feedbackAPI = {
+  submitFeedback: (data: { message: string; rating: number }) => 
+    api.post('/api/feedback', data),
+  getFeedback: () => api.get('/api/feedback'),
+};
+
 // Health API
 export const healthAPI = {
   getStatus: () => api.get('/api/health'),
